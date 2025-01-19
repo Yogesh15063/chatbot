@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User } from 'lucide-react';
+import { config } from './config';
 
 interface Message {
   id: number;
@@ -28,7 +29,7 @@ function App() {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch('http://localhost:3000/messages');
+      const response = await fetch(`${config.apiUrl}/messages`);
       const data = await response.json();
       setMessages(data);
     } catch (error) {
@@ -42,7 +43,7 @@ function App() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/messages', {
+      const response = await fetch(`${config.apiUrl}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,5 +130,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

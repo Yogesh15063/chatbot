@@ -12,7 +12,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const db = new Database(join(__dirname, 'chat.db'));
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://678d1b94f0cfce3b7c21cdc0--boisterous-moxie-1d757c.netlify.app/' // e.g. https://your-app.netlify.app
+    : 'http://localhost:5173'
+}));
 app.use(express.json());
 
 // Initialize Gemini AI
